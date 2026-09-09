@@ -203,16 +203,28 @@ fn seo_kit() -> SeoKit {
     kit
 }
 
-const HEAD: &str = r##"
-<link rel="preconnect" href="https://fonts.googleapis.com" />
+const FONTS_CSS: &str = "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap";
+
+fn head_html() -> String {
+    // Non-blocking Google Fonts (print→all) + low-priority app JS — same TBT
+    // posture as forgeyt (eager LCP CSS, third-party / chrome JS deferred or low).
+    format!(
+        r##"<link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="preload" as="style" href="{fonts}" />
+<link rel="stylesheet" href="{fonts}" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="{fonts}" /></noscript>
+<link rel="preload" href="/themes.css" as="style" />
+<link rel="preload" href="/css/goldev.css?v=17" as="style" />
 <link rel="icon" href="/icon.svg" type="image/svg+xml" />
 <link rel="icon" href="/icons/favicon-32.png" type="image/png" sizes="32x32" />
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
 <meta name="theme-color" content="#0a0c10" />
-<script type="module" src="/js/goldev.js?v=7"></script>
-"##;
+<script type="module" src="/js/goldev.js?v=7" fetchpriority="low"></script>
+"##,
+        fonts = FONTS_CSS
+    )
+}
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
@@ -221,12 +233,17 @@ async fn main() -> std::io::Result<()> {
     let public = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("public");
     const ICON: &[u8] = include_bytes!("icon.svg");
 
-    let mut app = FlowApp::new()
+    let contact = std::env::var("CONTACT_EMAIL")
+        .ok()
+        .map(|s| s.trim().to_string())
+        .filter(|s| s.contains('@') && !s.contains(' '));
+
+    FlowApp::new()
         .with_title("Goldev — Golfredo Pérez Fernández")
         .with_description(crate::site::TAGLINE)
         .with_site_url(crate::site::public_origin())
         .with_og_image("/og.png")
-        .with_head(HEAD)
+        .with_head(head_html())
         .with_seo_kit(seo_kit())
         .with_html_theme(
             HtmlTheme::new(["argent"])
@@ -234,27 +251,11 @@ async fn main() -> std::io::Result<()> {
                 .cookie("goldev_theme")
                 .storage_key("goldev-theme"),
         )
-        .with_stylesheet("/css/goldev.css?v=16")
+        .with_stylesheet("/css/goldev.css?v=17")
         // public/*.svg → octet-stream + nosniff blanks <img>; serve via static_asset.
-        .static_asset("/icon.svg", ICON, "image/svg+xml");
-    {
-        let contact = std::env::var("CONTACT_EMAIL")
-            .ok()
-            .map(|s| s.trim().to_string())
-            .filter(|s| s.contains('@') && !s.contains(' '))
-            .map(|e| format!("Contact: mailto:{e}\n"))
-            .unwrap_or_default();
-        let body = format!(
-            "{contact}Canonical: https://golfredo.dev/.well-known/security.txt\nPreferred-Languages: en\nExpires: 2027-12-31T23:59:59Z\n"
-        );
-        let leaked: &'static [u8] = Box::leak(body.into_bytes().into_boxed_slice());
-        app = app.static_asset(
-            "/.well-known/security.txt",
-            leaked,
-            "text/plain; charset=utf-8",
-        );
-    }
-    app.with_public_dir(public)
+        .static_asset("/icon.svg", ICON, "image/svg+xml")
+        .with_security_txt(crate::site::public_origin(), contact.as_deref())
+        .with_public_dir(public)
         .with_pwa(FlowPwaConfig {
             name: "Goldev".into(),
             short_name: "Goldev".into(),
@@ -263,14 +264,14 @@ async fn main() -> std::io::Result<()> {
             background_color: "#0a0c10".into(),
             start_url: "/".into(),
             scope: "/".into(),
-            cache_version: "goldev-17".into(),
+            cache_version: "goldev-18".into(),
             display: "standalone".into(),
             orientation: "any".into(),
             lang: "en".into(),
             icon_char: Some("G".into()),
             precache_paths: vec![
                 "/themes.css".into(),
-                "/css/goldev.css?v=16".into(),
+                "/css/goldev.css?v=17".into(),
                 "/js/goldev.js?v=7".into(),
                 "/icon.svg".into(),
                 "/icons/icon-192.png".into(),

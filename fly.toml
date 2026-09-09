@@ -16,11 +16,11 @@ primary_region = "ams"
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = "stop"
+  auto_stop_machines = true
   auto_start_machines = true
+  # Keep one warm machine so mobile FCP/LCP are not tanked by cold starts.
   min_machines_running = 1
   processes = ["app"]
-
 
   [http_service.http_options.response]
     # Stop advertising Fly’s Server / Via fingerprints (monitor.works).
