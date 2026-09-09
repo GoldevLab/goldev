@@ -1742,6 +1742,28 @@ html.nav-open .nav-toggle-bars span:nth-child(3) {
   color: var(--text);
 }
 
+.footer-family {
+  margin-top: 0.35rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid color-mix(in srgb, var(--line, #2a303c) 70%, transparent);
+}
+
+.sister-apps-links {
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.sister-apps-links a {
+  text-decoration: none;
+  color: var(--muted);
+  transition: color 180ms ease;
+}
+
+.sister-apps-links a:hover {
+  color: var(--text);
+}
+
 /* ——— View Transitions (Resuma data-r-vt) ——— */
 @media (prefers-reduced-motion: no-preference) {
   ::view-transition-old(root) {

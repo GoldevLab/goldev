@@ -1,6 +1,7 @@
 //! Goldev — portfolio for Golfredo Pérez Fernández / GoldevLab.
 
 mod cards;
+mod cross_sell;
 mod faq;
 mod offerings;
 mod pages;
@@ -90,6 +91,9 @@ fn chrome(body: View) -> View {
                         <a href={crate::site::LINKEDIN} rel="noopener noreferrer">"LinkedIn"</a>
                         <a href={format!("mailto:{}", crate::site::EMAIL)}>{crate::site::EMAIL}</a>
                     </div>
+                </div>
+                <div class="footer-inner footer-family">
+                    {crate::cross_sell::sister_apps_links()}
                 </div>
             </footer>
         </div>
@@ -215,7 +219,7 @@ fn head_html() -> String {
 <link rel="stylesheet" href="{fonts}" media="print" onload="this.media='all'" />
 <noscript><link rel="stylesheet" href="{fonts}" /></noscript>
 <link rel="preload" href="/themes.css" as="style" />
-<link rel="preload" href="/css/goldev.css?v=17" as="style" />
+<link rel="preload" href="/css/goldev.css?v=18" as="style" />
 <link rel="icon" href="/icon.svg" type="image/svg+xml" />
 <link rel="icon" href="/icons/favicon-32.png" type="image/png" sizes="32x32" />
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
@@ -251,7 +255,7 @@ async fn main() -> std::io::Result<()> {
                 .cookie("goldev_theme")
                 .storage_key("goldev-theme"),
         )
-        .with_stylesheet("/css/goldev.css?v=17")
+        .with_stylesheet("/css/goldev.css?v=18")
         // public/*.svg → octet-stream + nosniff blanks <img>; serve via static_asset.
         .static_asset("/icon.svg", ICON, "image/svg+xml")
         .with_security_txt(crate::site::public_origin(), contact.as_deref())
@@ -264,14 +268,14 @@ async fn main() -> std::io::Result<()> {
             background_color: "#0a0c10".into(),
             start_url: "/".into(),
             scope: "/".into(),
-            cache_version: "goldev-18".into(),
+            cache_version: "goldev-19".into(),
             display: "standalone".into(),
             orientation: "any".into(),
             lang: "en".into(),
             icon_char: Some("G".into()),
             precache_paths: vec![
                 "/themes.css".into(),
-                "/css/goldev.css?v=17".into(),
+                "/css/goldev.css?v=18".into(),
                 "/js/goldev.js?v=7".into(),
                 "/icon.svg".into(),
                 "/icons/icon-192.png".into(),
