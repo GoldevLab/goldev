@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" role="img" aria-label="Goldev">
+  <defs>
+    <linearGradient id="gd-foil" x1="10" y1="8" x2="70" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.35" stop-color="#edf0f5"/>
+      <stop offset="0.68" stop-color="#c9b896"/>
+      <stop offset="1" stop-color="#8b93a3"/>
+    </linearGradient>
+    <linearGradient id="gd-plate" x1="12" y1="10" x2="68" y2="70" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1c212b"/>
+      <stop offset="1" stop-color="#080a0e"/>
+    </linearGradient>
+    <linearGradient id="gd-sheen" x1="18" y1="14" x2="60" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.28"/>
+      <stop offset="0.5" stop-color="#fff" stop-opacity="0.04"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="gd-soft" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+  <rect width="80" height="80" rx="22" fill="#050608"/>
+  <rect
+    x="4" y="4" width="72" height="72" rx="18"
+    fill="url(#gd-plate)"
+    stroke="url(#gd-foil)"
+    stroke-width="1.35"
+    filter="url(#gd-soft)"/>
+  <rect x="4" y="4" width="72" height="72" rx="18" fill="url(#gd-sheen)"/>
+  <!-- Monogram G: open ring + spur -->
+  <g
+    fill="none"
+    stroke="url(#gd-foil)"
+    stroke-width="6.2"
+    stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M51.5 27.2a15.8 15.8 0 1 0 0.15 25.6"/>
+    <path d="M39.2 40h16.8"/>
+  </g>
+  <!-- Micro facet on spur for jewelry feel -->
+  <circle cx="53.5" cy="40" r="1.7" fill="#0a0c10" fill-opacity="0.45"/>
+</svg>
