@@ -43,11 +43,29 @@ fn chrome(body: View) -> View {
                         <img class="brand-logo" src="/icon.svg" width="36" height="36" alt="" />
                         <span class="brand-name">"Goldev"</span>
                     </NavLink>
-                    <nav class="site-nav" aria-label="Primary">
+                    <button
+                        type="button"
+                        class="nav-toggle"
+                        data-nav-toggle=""
+                        aria-expanded="false"
+                        aria-controls="site-menu"
+                        aria-label="Open menu"
+                    >
+                        <span class="nav-toggle-bars" aria-hidden="true">
+                            <span></span><span></span><span></span>
+                        </span>
+                    </button>
+                    <div class="nav-backdrop" data-nav-backdrop="" hidden=""></div>
+                    <nav class="site-nav" id="site-menu" data-site-nav="" aria-label="Primary">
+                        <p class="nav-drawer-kicker" aria-hidden="true">"Menu"</p>
                         <NavLink href="/work" activeClass="is-active">"Work"</NavLink>
                         <NavLink href="/about" activeClass="is-active">"About"</NavLink>
                         <a href="/#faq">"FAQ"</a>
                         <NavLink href="/contact" activeClass="is-active">"Contact"</NavLink>
+                        <div class="nav-drawer-meta">
+                            <a href={crate::site::GITHUB} rel="noopener noreferrer">"GitHub"</a>
+                            <a href={format!("mailto:{}", crate::site::EMAIL)}>"Email"</a>
+                        </div>
                     </nav>
                     <span class="nav-progress" aria-hidden="true"></span>
                 </div>
@@ -191,7 +209,7 @@ const HEAD: &str = r##"
 <link rel="icon" href="/icons/favicon-32.png" type="image/png" sizes="32x32" />
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
 <meta name="theme-color" content="#0a0c10" />
-<script type="module" src="/js/goldev.js?v=4"></script>
+<script type="module" src="/js/goldev.js?v=5"></script>
 "##;
 
 #[tokio::main]
@@ -214,7 +232,7 @@ async fn main() -> std::io::Result<()> {
                 .cookie("goldev_theme")
                 .storage_key("goldev-theme"),
         )
-        .with_stylesheet("/css/goldev.css?v=13")
+        .with_stylesheet("/css/goldev.css?v=14")
         // public/*.svg → octet-stream + nosniff blanks <img>; serve via static_asset.
         .static_asset("/icon.svg", ICON, "image/svg+xml");
     {
@@ -243,15 +261,15 @@ async fn main() -> std::io::Result<()> {
             background_color: "#0a0c10".into(),
             start_url: "/".into(),
             scope: "/".into(),
-            cache_version: "goldev-13".into(),
+            cache_version: "goldev-14".into(),
             display: "standalone".into(),
             orientation: "any".into(),
             lang: "en".into(),
             icon_char: Some("G".into()),
             precache_paths: vec![
                 "/themes.css".into(),
-                "/css/goldev.css?v=13".into(),
-                "/js/goldev.js?v=4".into(),
+                "/css/goldev.css?v=14".into(),
+                "/js/goldev.js?v=5".into(),
                 "/icon.svg".into(),
                 "/icons/icon-192.png".into(),
                 "/icons/icon-512.png".into(),

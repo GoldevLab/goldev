@@ -326,10 +326,73 @@
     mountHeroParticles();
     mountHeroCarousel();
   };
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", tryHero, { once: true });
-  } else {
+
+  let navDrawerReady = false;
+  const mountNavDrawer = () => {
+    if (navDrawerReady) return;
+    const toggle = document.querySelector("[data-nav-toggle]");
+    const nav = document.querySelector("[data-site-nav]");
+    const backdrop = document.querySelector("[data-nav-backdrop]");
+    if (!toggle || !nav) return;
+    navDrawerReady = true;
+
+    const setOpen = (open) => {
+      document.documentElement.classList.toggle("nav-open", open);
+      const btn = document.querySelector("[data-nav-toggle]");
+      const sheet = document.querySelector("[data-site-nav]");
+      const veil = document.querySelector("[data-nav-backdrop]");
+      if (btn) {
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+        btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      }
+      if (veil) {
+        if (open) veil.removeAttribute("hidden");
+        else veil.setAttribute("hidden", "");
+      }
+      if (open) sheet?.querySelector("a")?.focus({ preventScroll: true });
+    };
+
+    const close = () => setOpen(false);
+    const isOpen = () => document.documentElement.classList.contains("nav-open");
+
+    document.addEventListener("click", (e) => {
+      const t = e.target instanceof Element ? e.target : null;
+      if (!t) return;
+      if (t.closest("[data-nav-toggle]")) {
+        e.preventDefault();
+        isOpen() ? close() : setOpen(true);
+        return;
+      }
+      if (t.closest("[data-nav-backdrop]")) {
+        close();
+        return;
+      }
+      if (isOpen() && t.closest("[data-site-nav] a")) close();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && isOpen()) {
+        close();
+        document.querySelector("[data-nav-toggle]")?.focus({ preventScroll: true });
+      }
+    });
+    document.addEventListener("resuma:navigate", close);
+    window.addEventListener(
+      "resize",
+      () => {
+        if (window.matchMedia("(min-width: 721px)").matches) close();
+      },
+      { passive: true },
+    );
+  };
+
+  const boot = () => {
     tryHero();
+    mountNavDrawer();
+  };
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot, { once: true });
+  } else {
+    boot();
   }
   document.addEventListener("resuma:navigate", () => requestAnimationFrame(tryHero));
 })();

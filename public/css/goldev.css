@@ -395,6 +395,90 @@ html.is-navigating .nav-progress {
   letter-spacing: 0.02em;
 }
 
+.nav-toggle {
+  display: none;
+  appearance: none;
+  place-items: center;
+  width: 2.65rem;
+  height: 2.65rem;
+  margin: 0;
+  padding: 0;
+  border-radius: 0.85rem;
+  border: 1px solid var(--border-glass);
+  background: var(--glass-fill);
+  color: var(--text);
+  cursor: pointer;
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(16px) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(16px) saturate(var(--glass-saturate));
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    transform 180ms var(--ease-out);
+}
+
+.nav-toggle:hover {
+  border-color: var(--glass-edge-hi);
+}
+
+.nav-toggle:active {
+  transform: scale(0.96);
+}
+
+.nav-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.nav-toggle-bars {
+  position: relative;
+  display: block;
+  width: 1.15rem;
+  height: 0.85rem;
+}
+
+.nav-toggle-bars span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transition:
+    transform 280ms var(--ease-out),
+    opacity 180ms ease,
+    top 280ms var(--ease-out);
+}
+
+.nav-toggle-bars span:nth-child(1) { top: 0; }
+.nav-toggle-bars span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+.nav-toggle-bars span:nth-child(3) { bottom: 0; top: auto; }
+
+html.nav-open .nav-toggle-bars span:nth-child(1) {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+html.nav-open .nav-toggle-bars span:nth-child(2) {
+  opacity: 0;
+  transform: translateY(-50%) scaleX(0.4);
+}
+
+html.nav-open .nav-toggle-bars span:nth-child(3) {
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+.nav-backdrop {
+  display: none;
+}
+
+.nav-drawer-kicker,
+.nav-drawer-meta {
+  display: none;
+}
+
 .site-nav {
   display: flex;
   flex-wrap: wrap;
@@ -1511,8 +1595,12 @@ html.is-navigating .nav-progress {
   }
 
   .hero-carousel-progress > span,
-  .hero-slide-media img {
+  .hero-slide-media img,
+  .nav-toggle-bars span,
+  .site-nav,
+  .nav-backdrop {
     animation: none !important;
+    transition: none !important;
   }
 
   .hero-carousel-track {
@@ -1532,15 +1620,185 @@ html.is-navigating .nav-progress {
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 720px) {
+  .nav-toggle {
+    display: grid;
+    z-index: 60;
+  }
+
+  .nav-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background:
+      radial-gradient(ellipse 70% 50% at 80% 10%, rgba(201, 184, 150, 0.12), transparent 55%),
+      rgba(5, 6, 8, 0.62);
+    backdrop-filter: blur(10px) saturate(120%);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 280ms var(--ease-out);
+  }
+
   .site-nav {
-    gap: 0.5rem;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 55;
+    width: min(19.5rem, 86dvw);
+    height: 100dvb;
+    margin: 0;
+    padding:
+      calc(var(--header-h) + 1.35rem)
+      1.35rem
+      calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 0.35rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background:
+      linear-gradient(165deg, rgba(28, 33, 43, 0.92), rgba(8, 10, 14, 0.94)),
+      var(--glass-fill);
+    border-left: 1px solid var(--border-glass);
+    box-shadow: -24px 0 60px rgba(0, 0, 0, 0.45), inset 1px 0 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(28px) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(28px) saturate(var(--glass-saturate));
+    transform: translateX(104%);
+    visibility: hidden;
+    transition:
+      transform 340ms var(--ease-out),
+      visibility 340ms;
+  }
+
+  .site-nav::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--glass-edge-hi), transparent);
+    pointer-events: none;
+  }
+
+  .nav-drawer-kicker {
+    display: block;
+    margin: 0 0 0.85rem;
+    font-family: var(--display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .site-nav > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.95rem 0.85rem;
+    border-radius: 0.95rem;
+    border: 1px solid transparent;
+    color: var(--text);
+    font-family: var(--display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: transparent;
+    transition:
+      background 180ms ease,
+      border-color 180ms ease,
+      transform 180ms var(--ease-out);
+  }
+
+  .site-nav > a::after {
+    content: "↗";
+    position: static;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    height: auto;
+    background: none;
+    transform: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted);
+    opacity: 0.55;
+    transition: opacity 180ms ease, color 180ms ease;
+  }
+
+  .site-nav > a:hover,
+  .site-nav > a.is-active,
+  .site-nav > a[aria-current="page"] {
+    color: var(--text);
+    background: rgba(232, 236, 244, 0.07);
+    border-color: var(--border-glass);
+    transform: translateX(2px);
+  }
+
+  .site-nav > a:hover::after,
+  .site-nav > a.is-active::after,
+  .site-nav > a[aria-current="page"]::after {
+    transform: none;
+    opacity: 1;
+    color: var(--accent);
+  }
+
+  .nav-drawer-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--hairline);
+  }
+
+  .nav-drawer-meta a {
+    padding: 0.45rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-glass);
+    background: rgba(18, 22, 30, 0.55);
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  .nav-drawer-meta a::after {
+    display: none;
+  }
+
+  .nav-drawer-meta a:hover {
+    color: var(--text);
+    border-color: var(--glass-edge-hi);
+  }
+
+  html.nav-open {
+    overflow: hidden;
+  }
+
+  html.nav-open .nav-backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  html.nav-open .site-nav {
+    transform: translateX(0);
+    visibility: visible;
   }
 
   .header-inner {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
 
+  .hero-brand {
+    max-width: none;
+  }
+}
+
+@media (max-width: 640px) {
   .hero-brand {
     max-width: none;
   }
