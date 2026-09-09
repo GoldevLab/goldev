@@ -255,7 +255,7 @@ async fn main() -> std::io::Result<()> {
                 .cookie("goldev_theme")
                 .storage_key("goldev-theme"),
         )
-        .with_stylesheet("/css/goldev.css?v=18")
+        .with_stylesheet("/css/goldev.css?v=19")
         // public/*.svg → octet-stream + nosniff blanks <img>; serve via static_asset.
         .static_asset("/icon.svg", ICON, "image/svg+xml")
         .with_security_txt(crate::site::public_origin(), contact.as_deref())
@@ -268,14 +268,14 @@ async fn main() -> std::io::Result<()> {
             background_color: "#0a0c10".into(),
             start_url: "/".into(),
             scope: "/".into(),
-            cache_version: "goldev-19".into(),
+            cache_version: "goldev-20".into(),
             display: "standalone".into(),
             orientation: "any".into(),
             lang: "en".into(),
             icon_char: Some("G".into()),
             precache_paths: vec![
                 "/themes.css".into(),
-                "/css/goldev.css?v=18".into(),
+                "/css/goldev.css?v=19".into(),
                 "/js/goldev.js?v=7".into(),
                 "/icon.svg".into(),
                 "/icons/icon-192.png".into(),
