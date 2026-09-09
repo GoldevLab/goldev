@@ -219,7 +219,7 @@ fn head_html() -> String {
 <link rel="stylesheet" href="{fonts}" media="print" onload="this.media='all'" />
 <noscript><link rel="stylesheet" href="{fonts}" /></noscript>
 <link rel="preload" href="/themes.css" as="style" />
-<link rel="preload" href="/css/goldev.css?v=18" as="style" />
+<link rel="preload" href="/css/goldev.css?v=19" as="style" />
 <link rel="icon" href="/icon.svg" type="image/svg+xml" />
 <link rel="icon" href="/icons/favicon-32.png" type="image/png" sizes="32x32" />
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
