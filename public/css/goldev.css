@@ -188,6 +188,18 @@ img {
   view-transition-name: page-slot;
 }
 
+#main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+#main > .hero-wrap {
+  align-self: stretch;
+  width: 100%;
+}
+
 .liquid-orbs {
   position: fixed;
   inset: 0;
@@ -1100,7 +1112,7 @@ html.nav-open .nav-toggle-bars span:nth-child(3) {
 }
 
 .section {
-  width: 100%;
+  width: min(100%, var(--max));
   max-width: var(--max);
   margin-inline: auto;
   padding: clamp(2.5rem, 6vh, 4.5rem) var(--page-pad) clamp(2.5rem, 6vh, 4.5rem) var(--page-pad-end);
@@ -1118,6 +1130,20 @@ html.nav-open .nav-toggle-bars span:nth-child(3) {
   margin: 0 0 1.5rem;
   color: var(--muted);
   max-width: 36rem;
+}
+
+/* Reading blocks (FAQ / Contact): center the measure inside the rail */
+.section.faq > h2,
+.section.faq > .hint,
+.section.contact-section > h2,
+.section.contact-section > .hint {
+  text-align: center;
+  margin-inline: auto;
+}
+
+.section.faq > .hint,
+.section.contact-section > .hint {
+  max-width: 32rem;
 }
 
 /* Offerings — plain columns, no card chrome */
@@ -1615,13 +1641,21 @@ html.nav-open .nav-toggle-bars span:nth-child(3) {
 
 .contact-list a:hover {
   color: var(--link-hover);
-  transform: translateX(4px);
+  transform: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .contact-list a:hover {
+    transform: translateX(4px);
+  }
 }
 
 .contact-panel {
   display: grid;
   gap: 1.25rem;
+  width: min(100%, 36rem);
   max-width: 36rem;
+  margin-inline: auto;
 }
 
 /* Descenders (g, y, p) clipped by .glass-panel { overflow: hidden } + Syne */
@@ -1635,13 +1669,16 @@ html.nav-open .nav-toggle-bars span:nth-child(3) {
   gap: 0.75rem;
   position: relative;
   z-index: 1;
+  justify-content: center;
 }
 
 .faq-list {
   display: grid;
   gap: 0.65rem;
   margin-top: 1rem;
-  max-width: 48rem;
+  width: min(100%, 40rem);
+  max-width: 40rem;
+  margin-inline: auto;
 }
 
 .faq-item {
