@@ -77,8 +77,8 @@ pub const PIECES: &[Piece] = &[
 ];
 
 /// Flagship apps for the home hero carousel (keeps the fold sharp).
+/// YouTubeForge is reserved for the case-study block so it is not repeated here.
 pub const HERO_PIECES: &[&Piece] = &[
-    &PIECES[0], // YouTubeForge
     &PIECES[1], // UnderKb
     &PIECES[2], // ACUPATAS
     &PIECES[3], // Koolinart

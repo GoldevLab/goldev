@@ -13,7 +13,13 @@ pub fn page(_req: FlowRequest) -> View {
     set_page_description(TAGLINE);
     set_page_canonical(canonical_url("/"));
 
-    let featured: Vec<View> = PIECES.iter().take(6).map(work_card).collect();
+    // Skip the case-study product so YouTubeForge is not shown three times on home.
+    let featured: Vec<View> = PIECES
+        .iter()
+        .filter(|p| p.href != FEATURED_CASE.href)
+        .take(6)
+        .map(work_card)
+        .collect();
 
     let slides: Vec<View> = HERO_PIECES
         .iter()
