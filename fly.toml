@@ -1,8 +1,8 @@
 app = "goldev"
-
 primary_region = "dfw"
 
 [build]
+  dockerfile = "Dockerfile"
 
 [env]
   RESUMA_ENV = "production"
@@ -11,7 +11,7 @@ primary_region = "dfw"
   RESUMA_ADDR = "0.0.0.0:8080"
   RESUMA_DATA_DIR = "/data"
   CARGO_MANIFEST_DIR = "/app"
-  SITE_URL = "https://golfredo.dev"
+  SITE_URL = "https://goldev.fly.dev"
 
 [http_service]
   internal_port = 8080
@@ -19,9 +19,10 @@ primary_region = "dfw"
   auto_stop_machines = "stop"
   auto_start_machines = true
   min_machines_running = 0
+  processes = ["app"]
 
   [[http_service.checks]]
-    grace_period = "10s"
+    grace_period = "20s"
     interval = "15s"
     method = "GET"
     path = "/health"
@@ -29,4 +30,4 @@ primary_region = "dfw"
 
 [[vm]]
   size = "shared-cpu-1x"
-  memory = "256mb"
+  memory = "512mb"
