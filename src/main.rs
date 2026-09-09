@@ -201,7 +201,7 @@ async fn main() -> std::io::Result<()> {
     let public = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("public");
     const ICON: &[u8] = include_bytes!("icon.svg");
 
-    FlowApp::new()
+    let mut app = FlowApp::new()
         .with_title("Goldev — Golfredo Pérez Fernández")
         .with_description(crate::site::TAGLINE)
         .with_site_url(crate::site::public_origin())
@@ -216,8 +216,25 @@ async fn main() -> std::io::Result<()> {
         )
         .with_stylesheet("/css/goldev.css?v=13")
         // public/*.svg → octet-stream + nosniff blanks <img>; serve via static_asset.
-        .static_asset("/icon.svg", ICON, "image/svg+xml")
-        .with_public_dir(public)
+        .static_asset("/icon.svg", ICON, "image/svg+xml");
+    {
+        let contact = std::env::var("CONTACT_EMAIL")
+            .ok()
+            .map(|s| s.trim().to_string())
+            .filter(|s| s.contains('@') && !s.contains(' '))
+            .map(|e| format!("Contact: mailto:{e}\n"))
+            .unwrap_or_default();
+        let body = format!(
+            "{contact}Canonical: https://golfredo.dev/.well-known/security.txt\nPreferred-Languages: en\nExpires: 2027-12-31T23:59:59Z\n"
+        );
+        let leaked: &'static [u8] = Box::leak(body.into_bytes().into_boxed_slice());
+        app = app.static_asset(
+            "/.well-known/security.txt",
+            leaked,
+            "text/plain; charset=utf-8",
+        );
+    }
+    app.with_public_dir(public)
         .with_pwa(FlowPwaConfig {
             name: "Goldev".into(),
             short_name: "Goldev".into(),
