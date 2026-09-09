@@ -68,27 +68,6 @@ pub const PIECES: &[Piece] = &[
         preview: "/previews/placaqr.webp",
     },
     Piece {
-        name: "Billloom",
-        href: "https://billloom.fly.dev",
-        blurb: "Invoice, quote, and receipt PDFs. No account, no watermark.",
-        kind: "Product",
-        preview: "/previews/billloom.webp",
-    },
-    Piece {
-        name: "Linkprobe",
-        href: "https://linkprobe.fly.dev",
-        blurb: "Paste a URL. See which links work and which 404.",
-        kind: "Product",
-        preview: "/previews/linkprobe.webp",
-    },
-    Piece {
-        name: "Svgsport",
-        href: "https://svgsport.fly.dev",
-        blurb: "Paste a page. Download every SVG as a zip.",
-        kind: "Product",
-        preview: "/previews/svgsport.webp",
-    },
-    Piece {
         name: "Resuma",
         href: "https://resuma-docs.fly.dev",
         blurb: "Resumable SSR in Rust — islands, Flow routing, zero hydration by default.",
@@ -106,5 +85,5 @@ pub const HERO_PIECES: &[&Piece] = &[
     &PIECES[4], // PDFForge
     &PIECES[5], // Moa Academy
     &PIECES[7], // PlacaQR
-    &PIECES[11], // Resuma
+    &PIECES[8], // Resuma
 ];
