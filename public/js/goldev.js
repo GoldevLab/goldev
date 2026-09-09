@@ -385,9 +385,99 @@
     );
   };
 
+  /* Same-page #anchors: native smooth scroll is flaky on mobile Safari with a
+     sticky header, and Resuma SPA nav strips hashes on `/#section` links. */
+  let anchorScrollReady = false;
+  const mountAnchorScroll = () => {
+    if (anchorScrollReady) return;
+    anchorScrollReady = true;
+
+    const reduceMotion = () =>
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const closeNav = () => {
+      document.documentElement.classList.remove("nav-open");
+      const btn = document.querySelector("[data-nav-toggle]");
+      const veil = document.querySelector("[data-nav-backdrop]");
+      if (btn) {
+        btn.setAttribute("aria-expanded", "false");
+        btn.setAttribute("aria-label", "Open menu");
+      }
+      if (veil) veil.setAttribute("hidden", "");
+    };
+
+    const scrollToHash = (hash, { smooth = true } = {}) => {
+      const id = decodeURIComponent(String(hash || "").replace(/^#/, ""));
+      if (!id) return false;
+      const el = document.getElementById(id);
+      if (!el) return false;
+      const behavior = smooth && !reduceMotion() ? "smooth" : "auto";
+      el.scrollIntoView({ behavior, block: "start" });
+      return true;
+    };
+
+    const applyLocationHash = ({ smooth = false } = {}) => {
+      if (!location.hash || location.hash === "#") return;
+      scrollToHash(location.hash, { smooth });
+    };
+
+    document.addEventListener(
+      "click",
+      (e) => {
+        if (e.defaultPrevented || e.button !== 0) return;
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        const t = e.target instanceof Element ? e.target : null;
+        const a = t?.closest("a[href]");
+        if (!a || a.getAttribute("target") === "_blank" || a.hasAttribute("download")) {
+          return;
+        }
+        const raw = a.getAttribute("href");
+        if (!raw || raw.startsWith("javascript:")) return;
+
+        let url;
+        try {
+          url = new URL(raw, location.href);
+        } catch {
+          return;
+        }
+        if (url.origin !== location.origin || !url.hash || url.hash === "#") return;
+
+        const sameDoc =
+          url.pathname === location.pathname && url.search === location.search;
+
+        if (sameDoc) {
+          e.preventDefault();
+          e.stopPropagation();
+          closeNav();
+          const ok = scrollToHash(url.hash, { smooth: true });
+          if (ok) {
+            history.pushState(null, "", url.pathname + url.search + url.hash);
+          }
+          return;
+        }
+
+        /* Cross-page `/#id`: force a real navigation so the hash survives
+           (Resuma client history strips it and only scrollTo(0,0)). */
+        e.preventDefault();
+        e.stopPropagation();
+        closeNav();
+        location.assign(url.pathname + url.search + url.hash);
+      },
+      true,
+    );
+
+    window.addEventListener("hashchange", () => applyLocationHash({ smooth: true }));
+    document.addEventListener("resuma:navigate", () => {
+      requestAnimationFrame(() => applyLocationHash({ smooth: false }));
+    });
+
+    applyLocationHash({ smooth: false });
+  };
+
   const boot = () => {
     tryHero();
     mountNavDrawer();
+    mountAnchorScroll();
   };
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", boot, { once: true });

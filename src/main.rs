@@ -209,7 +209,7 @@ const HEAD: &str = r##"
 <link rel="icon" href="/icons/favicon-32.png" type="image/png" sizes="32x32" />
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
 <meta name="theme-color" content="#0a0c10" />
-<script type="module" src="/js/goldev.js?v=5"></script>
+<script type="module" src="/js/goldev.js?v=6"></script>
 "##;
 
 #[tokio::main]
@@ -232,7 +232,7 @@ async fn main() -> std::io::Result<()> {
                 .cookie("goldev_theme")
                 .storage_key("goldev-theme"),
         )
-        .with_stylesheet("/css/goldev.css?v=14")
+        .with_stylesheet("/css/goldev.css?v=15")
         // public/*.svg → octet-stream + nosniff blanks <img>; serve via static_asset.
         .static_asset("/icon.svg", ICON, "image/svg+xml");
     {
@@ -261,15 +261,15 @@ async fn main() -> std::io::Result<()> {
             background_color: "#0a0c10".into(),
             start_url: "/".into(),
             scope: "/".into(),
-            cache_version: "goldev-14".into(),
+            cache_version: "goldev-15".into(),
             display: "standalone".into(),
             orientation: "any".into(),
             lang: "en".into(),
             icon_char: Some("G".into()),
             precache_paths: vec![
                 "/themes.css".into(),
-                "/css/goldev.css?v=14".into(),
-                "/js/goldev.js?v=5".into(),
+                "/css/goldev.css?v=15".into(),
+                "/js/goldev.js?v=6".into(),
                 "/icon.svg".into(),
                 "/icons/icon-192.png".into(),
                 "/icons/icon-512.png".into(),
