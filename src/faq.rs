@@ -11,28 +11,32 @@ pub struct FaqItem {
 
 pub const FAQ: &[FaqItem] = &[
     FaqItem {
-        q: "What is Goldev?",
-        a: "Goldev is the personal brand and portfolio of Golfredo Pérez Fernández / GoldevLab — selected products, client builds, and the stack behind them.",
+        q: "What kinds of projects do you take?",
+        a: "Backend and APIs, Web3 product surfaces, and full web apps — especially Resuma microsaas and Qwik PWAs. If the problem is clear and the scope can ship in slices, we can talk.",
+    },
+    FaqItem {
+        q: "Do you work remotely?",
+        a: "Yes. Async-first with calls when they unblock decisions. Time zones are flexible as long as feedback loops stay short.",
+    },
+    FaqItem {
+        q: "Fixed packs or custom scope?",
+        a: "Custom scope. You get a written plan with milestones — not a generic pack. Small tools can be fixed-price; larger products usually run in phases.",
+    },
+    FaqItem {
+        q: "How long does a project take?",
+        a: "A focused tool can land in weeks. A marketplace or multi-surface product is phased — first useful release first, then deepen. Timelines live in the proposal, not as a slogan.",
+    },
+    FaqItem {
+        q: "What support do you offer after launch?",
+        a: "Handover with deploy notes, then optional support for fixes and the next slice. Email stays open for questions that keep the product healthy.",
     },
     FaqItem {
         q: "Rust or TypeScript — which do you use?",
-        a: "Both, on purpose. Resuma + Rust for microsaas tools that ship fast (YouTubeForge, UnderKb, PDFForge, and sisters). Qwik + TypeScript for larger product PWAs (ACUPATAS, MOA, Koolinart).",
-    },
-    FaqItem {
-        q: "Are you available for hire or collaboration?",
-        a: "Yes — backend, Web3, and product craft. Email is the best channel; include context, timeline, and links if you have them.",
-    },
-    FaqItem {
-        q: "What is Resuma?",
-        a: "A resumable Rust SSR framework (FlowApp, islands, HtmlTheme, View Transitions) used to build the GoldevLab microsaas suite. Docs live at resuma-docs.fly.dev.",
-    },
-    FaqItem {
-        q: "Where can I try the tools?",
-        a: "Use the Live apps carousel on the home page, or Selected work / Work — each card opens the production URL (forgeyt.com, under200kb.com, and Fly-hosted tools).",
+        a: "Both, on purpose. Resuma + Rust for microsaas that ship fast. Qwik + TypeScript for larger product PWAs (ACUPATAS, MOA, Koolinart).",
     },
     FaqItem {
         q: "How do I get in touch?",
-        a: "Email golfredo.pf@gmail.com, or reach GoldevLab on GitHub and LinkedIn. The Contact section below has direct links.",
+        a: "Email golfredo.pf@gmail.com with context, timeline, and links if you have them. Usually replies within 24 hours. GitHub and LinkedIn are linked in Contact.",
     },
 ];
 

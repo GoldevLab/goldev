@@ -87,3 +87,37 @@ pub const HERO_PIECES: &[&Piece] = &[
     &PIECES[7], // PlacaQR
     &PIECES[8], // Resuma
 ];
+
+/// One deep narrative case on the home page (challenge → solution → outcomes).
+#[derive(Clone, Copy)]
+pub struct CaseStudy {
+    pub eyebrow: &'static str,
+    pub title: &'static str,
+    pub subject: &'static str,
+    pub challenge: &'static str,
+    pub solution: &'static str,
+    pub outcomes: &'static [&'static str],
+    pub tech: &'static str,
+    pub href: &'static str,
+    pub preview: &'static str,
+    pub cta: &'static str,
+}
+
+pub const FEATURED_CASE: CaseStudy = CaseStudy {
+    eyebrow: "Case study",
+    title: "Captions → product workflow",
+    subject: "YouTubeForge — forgeyt.com",
+    challenge:
+        "Creators and teams needed transcripts, chapters, and translation from public captions — without a heavy desktop suite or opaque pricing.",
+    solution:
+        "A focused Resuma product: pull public captions, forge SRT/audio recaps, translate, and ship chapter-ready output from a silver-glass UI that stays fast on the phone.",
+    outcomes: &[
+        "Live at forgeyt.com",
+        "Transcript · SRT · chapters · translation",
+        "Resuma SSR — ship without a SPA tax",
+    ],
+    tech: "Rust · Resuma · Fly.io",
+    href: "https://forgeyt.com",
+    preview: "/previews/youtubeforge.webp",
+    cta: "Open YouTubeForge",
+};

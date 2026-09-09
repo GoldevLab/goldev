@@ -2,7 +2,9 @@
 
 mod cards;
 mod faq;
+mod offerings;
 mod pages;
+mod process;
 mod security;
 mod site;
 mod stack;
@@ -232,7 +234,7 @@ async fn main() -> std::io::Result<()> {
                 .cookie("goldev_theme")
                 .storage_key("goldev-theme"),
         )
-        .with_stylesheet("/css/goldev.css?v=15")
+        .with_stylesheet("/css/goldev.css?v=16")
         // public/*.svg → octet-stream + nosniff blanks <img>; serve via static_asset.
         .static_asset("/icon.svg", ICON, "image/svg+xml");
     {
@@ -261,14 +263,14 @@ async fn main() -> std::io::Result<()> {
             background_color: "#0a0c10".into(),
             start_url: "/".into(),
             scope: "/".into(),
-            cache_version: "goldev-15".into(),
+            cache_version: "goldev-16".into(),
             display: "standalone".into(),
             orientation: "any".into(),
             lang: "en".into(),
             icon_char: Some("G".into()),
             precache_paths: vec![
                 "/themes.css".into(),
-                "/css/goldev.css?v=15".into(),
+                "/css/goldev.css?v=16".into(),
                 "/js/goldev.js?v=6".into(),
                 "/icon.svg".into(),
                 "/icons/icon-192.png".into(),
