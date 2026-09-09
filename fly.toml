@@ -1,5 +1,5 @@
 app = "goldev"
-primary_region = "dfw"
+primary_region = "ams"
 
 [build]
   dockerfile = "Dockerfile"
@@ -11,7 +11,7 @@ primary_region = "dfw"
   RESUMA_ADDR = "0.0.0.0:8080"
   RESUMA_DATA_DIR = "/data"
   CARGO_MANIFEST_DIR = "/app"
-  SITE_URL = "https://goldev.fly.dev"
+  SITE_URL = "https://golfredo.dev"
 
 [http_service]
   internal_port = 8080
@@ -30,4 +30,4 @@ primary_region = "dfw"
 
 [[vm]]
   size = "shared-cpu-1x"
-  memory = "512mb"
+  memory = "256mb"
