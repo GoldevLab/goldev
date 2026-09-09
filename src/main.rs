@@ -211,7 +211,7 @@ const HEAD: &str = r##"
 <link rel="icon" href="/icons/favicon-32.png" type="image/png" sizes="32x32" />
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
 <meta name="theme-color" content="#0a0c10" />
-<script type="module" src="/js/goldev.js?v=6"></script>
+<script type="module" src="/js/goldev.js?v=7"></script>
 "##;
 
 #[tokio::main]
@@ -263,7 +263,7 @@ async fn main() -> std::io::Result<()> {
             background_color: "#0a0c10".into(),
             start_url: "/".into(),
             scope: "/".into(),
-            cache_version: "goldev-16".into(),
+            cache_version: "goldev-17".into(),
             display: "standalone".into(),
             orientation: "any".into(),
             lang: "en".into(),
@@ -271,7 +271,7 @@ async fn main() -> std::io::Result<()> {
             precache_paths: vec![
                 "/themes.css".into(),
                 "/css/goldev.css?v=16".into(),
-                "/js/goldev.js?v=6".into(),
+                "/js/goldev.js?v=7".into(),
                 "/icon.svg".into(),
                 "/icons/icon-192.png".into(),
                 "/icons/icon-512.png".into(),

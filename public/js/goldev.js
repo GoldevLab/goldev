@@ -221,12 +221,15 @@
         dot.setAttribute("aria-current", on ? "true" : "false");
       });
       if (scroll) {
-        const behavior = smooth && !reduce ? "smooth" : "instant";
-        slides[index].scrollIntoView({
-          behavior: behavior === "instant" ? "auto" : behavior,
-          inline: "start",
-          block: "nearest",
-        });
+        /* Prefer track.scrollTo — scrollIntoView also scrolls the page and
+           yanks the viewport back to the hero when the autoplay timer fires. */
+        const behavior = smooth && !reduce ? "smooth" : "auto";
+        const left = slides[index].offsetLeft;
+        if (typeof track.scrollTo === "function") {
+          track.scrollTo({ left, behavior });
+        } else {
+          track.scrollLeft = left;
+        }
       }
       restartProgress();
     };
