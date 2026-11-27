@@ -95,6 +95,20 @@ pub const PIECES: &[Piece] = &[
         kind: "Framework",
         preview: "/previews/resuma.webp",
     },
+    Piece {
+        name: "Orionchain DEX",
+        href: "https://orionchain-dex.fly.dev/",
+        blurb: "Token swaps on Orionchain (chain 585858) — V3 pools, bridge, and liquidity positions.",
+        kind: "Web3",
+        preview: "/previews/orionchain-dex.webp",
+    },
+    Piece {
+        name: "Orionchain Explorer",
+        href: "https://orionchain-block-explorer.fly.dev/",
+        blurb: "Block explorer for Orionchain — blocks, transactions, validators, and decoded token moves.",
+        kind: "Web3",
+        preview: "/previews/orionchain-block-explorer.webp",
+    },
 ];
 
 /// Flagship apps for the home hero carousel (keeps the fold sharp).
