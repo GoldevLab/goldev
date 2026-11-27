@@ -20,7 +20,7 @@ pub fn page(_req: FlowRequest) -> View {
     let featured: Vec<View> = PIECES
         .iter()
         .filter(|p| p.href != FEATURED_CASE.href)
-        .take(9)
+        .take(10)
         .map(work_card)
         .collect();
 
