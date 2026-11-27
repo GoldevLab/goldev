@@ -22,7 +22,8 @@ pub const ORG: &str = "GoldevLab";
 pub const EMAIL: &str = "golfredo.pf@gmail.com";
 pub const GITHUB: &str = "https://github.com/GoldevLab";
 pub const LINKEDIN: &str = "https://linkedin.com/in/golfredo-perez-fernandez";
-pub const TAGLINE: &str = "Backend, Web3, and resumable product craft — silver glass tools that ship.";
+pub const TAGLINE: &str =
+    "Rust and Web3 engineer building backend APIs, on-chain products, and fast web apps that ship.";
 /// Search title and snippet for the home page (role keywords that match the work shown).
 pub const SEO_TITLE_HOME: &str = "Golfredo Pérez Fernández — Rust & Web3 Developer | Goldev";
 pub const SEO_DESCRIPTION_HOME: &str = "Golfredo Pérez Fernández, Rust and Web3 developer from Venezuela. Backend APIs, on-chain product UIs and Resuma microsaas. Remote and async-first.";
