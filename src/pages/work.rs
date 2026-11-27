@@ -5,9 +5,9 @@ use crate::site::canonical_url;
 use crate::work::PIECES;
 
 pub fn page(_req: FlowRequest) -> View {
-    set_page_title("Work | Goldev");
+    set_page_title("Work — Rust, Web3 and product projects | Goldev");
     set_page_description(
-        "Selected work: ACUPATAS, MOA Education, Moa Academy, Koolinart, YouTubeForge, and more.",
+        "Selected work by Golfredo Pérez Fernández: YouTubeForge, UnderKb, PDFForge, ACUPATAS, MOA Education and Koolinart. Rust, Resuma and Web3 builds.",
     );
     set_page_canonical(canonical_url("/work"));
 

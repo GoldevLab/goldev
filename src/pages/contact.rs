@@ -3,8 +3,10 @@ use resuma::prelude::*;
 use crate::site::{canonical_url, EMAIL, GITHUB, LINKEDIN, NAME};
 
 pub fn page(_req: FlowRequest) -> View {
-    set_page_title("Contact | Goldev");
-    set_page_description("Contact Golfredo Pérez Fernández — email, GitHub, LinkedIn.");
+    set_page_title("Contact Golfredo Pérez Fernández — Rust & Web3 Developer | Goldev");
+    set_page_description(
+        "Hire Golfredo Pérez Fernández for Rust backend, Web3 and product web apps. Email, GitHub and LinkedIn.",
+    );
     set_page_canonical(canonical_url("/contact"));
 
     view! {

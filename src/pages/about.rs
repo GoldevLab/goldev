@@ -4,9 +4,9 @@ use crate::site::{canonical_url, NAME, ORG};
 use crate::stack::STACK;
 
 pub fn page(_req: FlowRequest) -> View {
-    set_page_title("About | Goldev");
+    set_page_title("About Golfredo Pérez Fernández — Rust & Web3 Developer | Goldev");
     set_page_description(
-        "Golfredo Pérez Fernández — Rust, TypeScript, Resuma, and Qwik. Backend, Web3, and product craft.",
+        "About Golfredo Pérez Fernández: Rust, Web3 and TypeScript engineer from Venezuela. Resuma microsaas, Qwik PWAs and on-chain product work.",
     );
     set_page_canonical(canonical_url("/about"));
 
@@ -27,7 +27,7 @@ pub fn page(_req: FlowRequest) -> View {
             </p>
             <div class="glass-panel prose reveal">
                 <p>
-                    "ACUPATAS, MOA Education, Moa Academy, and Koolinart run on Qwik/TypeScript. YouTubeForge, UnderKb, PDFForge, and the sister tools run on Resuma/Rust. Same craft, different runtime."
+                    "ACUPATAS, MOA Education, Moa Academy, and Koolinart run on Qwik/TypeScript. YouTubeForge, UnderKb, PDFForge, PureTok, CryptoPulse News, AF Venezuela, and the sister tools run on Resuma/Rust. Same craft, different runtime."
                 </p>
                 <p>
                     "Goldev is the front door: selected work, stack, and how to reach me."

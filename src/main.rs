@@ -159,21 +159,34 @@ fn seo_kit() -> SeoKit {
     let mut kit = SeoKit::new(crate::site::BRAND, &origin)
         .with_locale("en_US")
         .with_keywords(
-            "Golfredo Pérez Fernández, Goldev, GoldevLab, Resuma, portfolio, backend, Web3, YouTubeForge, UnderKb",
+            "Golfredo Pérez Fernández, Goldev, GoldevLab, Rust developer, Web3 developer, blockchain, backend engineer, Resuma, Venezuela, portfolio, YouTubeForge, UnderKb",
         )
         .with_llms_summary(
-            "Goldev is the portfolio of Golfredo Pérez Fernández (GoldevLab): client builds, \
-             microsaas tools, Web3, and Resuma SSR products.",
+            "Goldev is the portfolio of Golfredo Pérez Fernández (GoldevLab), a Rust and Web3 \
+             developer from Venezuela. Work: backend APIs, on-chain product UIs, Resuma SSR \
+             microsaas (YouTubeForge, UnderKb, PDFForge) and Qwik/TypeScript product PWAs.",
         )
         .with_default_json_ld()
         .push_json_ld(json!({
             "@context": "https://schema.org",
             "@type": "Person",
             "name": crate::site::NAME,
+            "alternateName": ["Golfredo Pérez", "Goldev", "GoldevLab"],
             "url": origin,
             "email": crate::site::EMAIL,
+            "description": crate::site::SEO_DESCRIPTION_HOME,
+            "knowsAbout": [
+                "Rust",
+                "Web3",
+                "Blockchain",
+                "Backend development",
+                "Resuma",
+                "TypeScript",
+                "Qwik",
+                "Web application development"
+            ],
             "sameAs": [crate::site::GITHUB, crate::site::LINKEDIN],
-            "jobTitle": "Software engineer",
+            "jobTitle": "Rust and Web3 software engineer",
             "worksFor": {
                 "@type": "Organization",
                 "name": crate::site::ORG,
@@ -225,8 +238,9 @@ fn head_html() -> String {
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
 <meta name="theme-color" content="#0a0c10" />
 <script type="module" src="/js/goldev.js?v=7" fetchpriority="low"></script>
-"##,
-        fonts = FONTS_CSS
+{extras}"##,
+        fonts = FONTS_CSS,
+        extras = crate::site::head_extras()
     )
 }
 
@@ -243,8 +257,8 @@ async fn main() -> std::io::Result<()> {
         .filter(|s| s.contains('@') && !s.contains(' '));
 
     FlowApp::new()
-        .with_title("Goldev — Golfredo Pérez Fernández")
-        .with_description(crate::site::TAGLINE)
+        .with_title(crate::site::SEO_TITLE_HOME)
+        .with_description(crate::site::SEO_DESCRIPTION_HOME)
         .with_site_url(crate::site::public_origin())
         .with_og_image("/og.png")
         .with_head(head_html())

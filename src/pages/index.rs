@@ -4,20 +4,23 @@ use crate::cards::work_card;
 use crate::faq::faq_cards;
 use crate::offerings::offering_items;
 use crate::process::process_items;
-use crate::site::{canonical_url, EMAIL, GITHUB, LINKEDIN, NAME, TAGLINE};
+use crate::site::{
+    canonical_url, EMAIL, GITHUB, LINKEDIN, NAME, ROLE, SEO_DESCRIPTION_HOME, SEO_TITLE_HOME,
+    TAGLINE,
+};
 use crate::stack::STACK;
 use crate::work::{FEATURED_CASE, HERO_PIECES, PIECES};
 
 pub fn page(_req: FlowRequest) -> View {
-    set_page_title("Goldev — Golfredo Pérez Fernández");
-    set_page_description(TAGLINE);
+    set_page_title(SEO_TITLE_HOME);
+    set_page_description(SEO_DESCRIPTION_HOME);
     set_page_canonical(canonical_url("/"));
 
     // Skip the case-study product so YouTubeForge is not shown three times on home.
     let featured: Vec<View> = PIECES
         .iter()
         .filter(|p| p.href != FEATURED_CASE.href)
-        .take(6)
+        .take(9)
         .map(work_card)
         .collect();
 
@@ -120,7 +123,7 @@ pub fn page(_req: FlowRequest) -> View {
                 <div class="hero-particles" data-hero-particles="" aria-hidden="true"></div>
                 <section class="hero">
                     <div class="hero-copy">
-                        <p class="eyebrow">"Software engineer · GoldevLab"</p>
+                        <p class="eyebrow">{ROLE} " · GoldevLab"</p>
                         <h1 class="hero-brand">{NAME}</h1>
                         <p class="hero-lead">{TAGLINE}</p>
                         <div class="hero-cta">

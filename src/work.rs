@@ -40,11 +40,25 @@ pub const PIECES: &[Piece] = &[
         preview: "/previews/koolinart.webp",
     },
     Piece {
+        name: "CryptoPulse News",
+        href: "https://cryptopulse-news.fly.dev/",
+        blurb: "Crypto headlines aggregated from outlets in many languages — every story links to the original article.",
+        kind: "Product",
+        preview: "/previews/cryptopulse-news.webp",
+    },
+    Piece {
         name: "PDFForge",
         href: "https://pdfforge.fly.dev",
         blurb: "Merge, split, compress PDFs. JPG ↔ PDF and extract text.",
         kind: "Product",
         preview: "/previews/pdfforge.webp",
+    },
+    Piece {
+        name: "PureTok",
+        href: "https://puretok.fly.dev/",
+        blurb: "Download public TikTok videos as MP4 or MP3, or read the captions as a searchable transcript.",
+        kind: "Product",
+        preview: "/previews/puretok.webp",
     },
     Piece {
         name: "Moa Academy",
@@ -68,6 +82,13 @@ pub const PIECES: &[Piece] = &[
         preview: "/previews/placaqr.webp",
     },
     Piece {
+        name: "AF Venezuela",
+        href: "https://afvenezuela.fly.dev/",
+        blurb: "Directory of the ten Alliance Française locations in Venezuela — courses, map, and DELF/DALF, in Spanish and French.",
+        kind: "Product",
+        preview: "/previews/af-venezuela.webp",
+    },
+    Piece {
         name: "Resuma",
         href: "https://resuma-docs.fly.dev",
         blurb: "Resumable SSR in Rust — islands, Flow routing, zero hydration by default.",
@@ -79,13 +100,13 @@ pub const PIECES: &[Piece] = &[
 /// Flagship apps for the home hero carousel (keeps the fold sharp).
 /// YouTubeForge is reserved for the case-study block so it is not repeated here.
 pub const HERO_PIECES: &[&Piece] = &[
-    &PIECES[1], // UnderKb
-    &PIECES[2], // ACUPATAS
-    &PIECES[3], // Koolinart
-    &PIECES[4], // PDFForge
-    &PIECES[5], // Moa Academy
-    &PIECES[7], // PlacaQR
-    &PIECES[8], // Resuma
+    &PIECES[1],  // UnderKb
+    &PIECES[2],  // ACUPATAS
+    &PIECES[3],  // Koolinart
+    &PIECES[5],  // PDFForge
+    &PIECES[7],  // Moa Academy
+    &PIECES[9],  // PlacaQR
+    &PIECES[11], // Resuma
 ];
 
 /// One deep narrative case on the home page (challenge → solution → outcomes).
