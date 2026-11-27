@@ -9,7 +9,7 @@ use crate::site::{
     TAGLINE,
 };
 use crate::stack::STACK;
-use crate::work::{FEATURED_CASE, HERO_PIECES, PIECES};
+use crate::work::{Piece, FEATURED_CASE, HERO_PIECES, PIECES};
 
 pub fn page(_req: FlowRequest) -> View {
     set_page_title(SEO_TITLE_HOME);
@@ -17,12 +17,14 @@ pub fn page(_req: FlowRequest) -> View {
     set_page_canonical(canonical_url("/"));
 
     // Skip the case-study product so YouTubeForge is not shown three times on home.
-    let featured: Vec<View> = PIECES
+    // Orionchain (Web3) leads the grid; the rest keep their order from `PIECES`.
+    // 12 cards = 6 full rows in the two-column grid.
+    let mut ordered: Vec<&Piece> = PIECES
         .iter()
         .filter(|p| p.href != FEATURED_CASE.href)
-        .take(10)
-        .map(work_card)
         .collect();
+    ordered.sort_by_key(|p| !p.name.starts_with("Orionchain"));
+    let featured: Vec<View> = ordered.into_iter().take(12).map(work_card).collect();
 
     let slides: Vec<View> = HERO_PIECES
         .iter()
